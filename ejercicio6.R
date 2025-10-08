@@ -34,12 +34,42 @@ head(eventos)
 count_region <- table(eventos$Region)
 count_evento <- table(eventos$Evento)
 
-# Grafica de barras
-X11()
-barplot(
-  height = count_region,
-  main = "Conteo de eventos por region",
-  col = "skyblue",
-  xlab = "Region",
-  ylab = "Conteo"
+# Configuracion de ventana grafica
+if (.Platform$OS.type == "windows") {
+  windows()
+} else {
+  X11()
+}
+# Grafica de barras de la region
+# barplot(
+#   height = count_region,
+#   main = "Conteo de eventos por region",
+#   col = "skyblue",
+#   xlab = "Region",
+#   ylab = "Conteo"
+# )
+
+# Grafica de barras del evento
+# barplot(
+#     height = count_evento,
+#     main = "Conteo de eventos por tipo",
+#     col = "lightgreen",
+#     xlab = "Tipo de evento",
+#     ylab = "Conteo"
+# )
+
+## Series de tiempo ##
+ts_beneficio <- ts(
+    eventos$Beneficio,
+    start = 2010,
+    frequency = 1
+)
+
+plot(
+    ts_beneficio,
+    main = "Beneficios anuales",
+    xlab = "Año",
+    ylab = "Beneficio",
+    col = "blue",
+    lwd = 2
 )
