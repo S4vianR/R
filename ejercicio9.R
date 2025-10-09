@@ -28,8 +28,8 @@ mastografias <- read_csv("./data/mastografias.csv")
 mastografias_chihuahua <- mastografias %>% filter(CEntidad == 8)
 ## Cargar datos de Juarez (CMunicipio=37)
 mastografias_juarez <- mastografias_chihuahua %>% filter(Cmunicipio == 37)
-## Opcionalmente, guardar los datos en un archivo RData
-save(mastografias_juarez, file = "./data/mastografias_juarez.RData")
+## Opcionalmente, guardar los datos en un archivo CSV
+write_csv(mastografias_juarez, "./data/mastografias_juarez.csv")
 
 # 3. Graficar datos
 ## Gráfica de resultados de chihuahua
