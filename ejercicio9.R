@@ -30,7 +30,7 @@ mastografias_chihuahua <- mastografias %>% filter(CEntidad == 8)
 mastografias_juarez <- mastografias_chihuahua %>% filter(Cmunicipio == 37)
 ## Opcionalmente, guardar los datos en un archivo CSV
 write_csv(mastografias_juarez, "./data/mastografias_juarez.csv")
-
+write_csv(mastografias_chihuahua, "./data/mastografias_chihuahua.csv")
 # 3. Graficar datos
 ## Gráfica de resultados de chihuahua
 ggplot(data = mastografias_chihuahua, aes(x = Resultado)) +

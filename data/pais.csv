@@ -1,0 +1,10 @@
+Resultado,Casos,Porcentaje
+Benigna,607633,76.85
+Negativa,108579,13.73
+Evaluacion Adicional,53459,6.76
+Probablemente Benigna,15067,1.91
+Anormalidad Sospechosa,2731,0.35
+Altamente Sugestiva a Malignidad,1080,0.14
+Baja Sospecha de Malignidad,904,0.11
+Riesgo Intermedio de Malignidad,883,0.11
+Riesgo Moderado de Malignidad,382,0.05
