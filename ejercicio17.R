@@ -2,7 +2,7 @@
 # Nombre: Reuben Rhienhart
 # Numero de control: 20112048
 # Grupo: H
-# Ejercicio 16: Regesión - mtcars
+# Ejercicio 17
 library(tidyverse)
 data(mtcars)
 
