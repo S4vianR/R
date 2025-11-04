@@ -1,0 +1,94 @@
+---
+title: "Clasificación supervisada con el dataset mtcars"
+author: "Dr. Reyes Méndez"
+format: html
+editor: visual
+---
+## Resumen
+Este artículo presenta una introducción a la clasificación supervisada utilizando el dataset \`mtcars\`.
+Se explora la relación entre las variables predictoras y la especie de flor, y se construye un modelo de
+regresión logística para predecir la especie en función de las medidas morfológicas.
+
+## 1. Introducción
+La clasificación supervisada es una técnica fundamental en aprendizaje automático. El dataset **mtcars**,
+introducido por Ronald Fisher, contiene 150 observaciones de tres especies de flores: **setosa**,
+**versicolor** y **virginica**. Cada flor está caracterizada por cuatro variables: largo y ancho del
+sépalo, largo y ancho del pétalo. Este conjunto de datos es ideal para enseñar conceptos básicos de
+clasificación, visualización y evaluación de modelos.
+
+## 2. Objetivo
+Enseñar cómo construir un modelo que **predice la clase** (especie de flor) a partir de **variables
+numéricas** (medidas morfológicas), utilizando técnicas de clasificación supervisada.
+
+## 3. Cargar los paquetes
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+```
+
+## 4. Explorar el dataset
+Usar glimpse() y summary() para entender la estructura y estadísticas descriptivas del dataset \`mtcars\`.
+```{r, message = FALSE, warning = FALSE}
+data(mtcars)
+glimpse(mtcars)
+summary(mtcars)
+```
+
+## 4.2 Convertir la variable cly a factor
+```{r, message = FALSE, warning = FALSE}
+mtcars$cyl <- factor(mtcars$cyl)
+class(mtcars$cyl)
+```
+
+## 5. Estadísticas descriptivas
+Calcular la media y dev. est. de variables numéricas agrupadas por número de cyl.
+```{r, message = FALSE, warning = FALSE}
+mtcars %>% group_by(cyl) %>%
+  summarise("Media" = round(mean(mpg), 2), "Desviación" = round(sd(mpg), 2))
+```
+
+## 6. Visualización de dispersión
+Crear un gráfico de dispersión entre mpg (millas por galón) y hp (caballos de fuerza), coloreando por cyl.
+```{r, message = FALSE, warning = FALSE}
+ggplot(mtcars, aes(x = mpg, y = hp, color = cyl)) +
+  geom_point(size = 3) +
+  labs(title = "Dispersión entre MPG y HP por número de cilindros",
+       x = "Millas por galón (MPG)",
+       y = "Caballos de fuerza (HP)") +
+  theme_minimal()
+```
+
+## 7. Boxplots Comparativos
+Mostrar la distribución de mpg por número de cilindros usando geom_boxplot().
+```{r, message = FALSE, warning = FALSE}
+ggplot(mtcars, aes(x = cyl, y = mpg, fill = cyl)) +
+  geom_boxplot(col = "black") +
+  labs(title = "Distribución de MPG por número de cilindros",
+       x = "Número de cilindros",
+       y = "Millas por galón (MPG)") +
+  theme_minimal()
+```
+
+## 8. Conclusión
+Los autos con 4 cilindros son más eficientes en consumo de combustible (mayor mpg) que los de 6 y 8 cilindros, pero tiene más variación que sus homólogos.
+
+### Resultados clave de la regresión:
+Intercepto: 37.2851 Esto representa el valor estimado de mpg cuando el peso (wt) es cero (aunque no tiene interpretación práctica directa).
+
+Coeficiente de wt: −5.3445 Por cada unidad adicional de peso (en miles de libras), se espera que el consumo (mpg) disminuya en aproximadamente 5.34 millas por galón.
+
+R² (R cuadrado): 0.7528 Esto indica que el modelo explica aproximadamente el 75.3% de la variabilidad en el consumo de combustible.
+
+## Extra 1. Modelo de regresión
+Regresión lineal simple entre mpg y wt.
+```{r, message = FALSE, warning = FALSE}
+modelo_simple <- lm(mpg ~ wt, data = mtcars)
+ggplot(modelo_simple, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = (y ~ x),se = FALSE, color = "blue") +
+  labs(title = "Regresión lineal simple entre MPG y Peso",
+       x = "Peso del auto (wt)",
+       y = "Millas por galón (MPG)") +
+  theme_minimal()
+```
